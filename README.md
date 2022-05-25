@@ -4,7 +4,7 @@
 
 ## 1. 프로젝트 구조
 
-1-1. src/Router.js
+### 1-1. src/Router.js
 
 프로젝트의 Routing을 관리하는 컴포넌트 입니다. 현재 프로젝트에는 두개의 Route가 구현되어 있습니다.
 
