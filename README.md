@@ -1,70 +1,49 @@
-# Getting Started with Create React App
+# Dynamic Routing
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+동적 라우팅을 직접 구현해보는 과제입니다.
 
-## Available Scripts
+## 프로젝트 구조
 
-In the project directory, you can run:
+### 1. src/Router.js
 
-### `npm start`
+프로젝트의 Routing을 관리하는 컴포넌트 입니다. 현재 프로젝트에는 두개의 Route가 구현되어 있습니다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. `"/"` : Monsters 컴포넌트가 렌더링 됩니다.
+2. `"/detail/"` : Monster 컴포넌트가 렌더링됩니다.(동적 라우팅이 아직 구현되어 있지 않습니다.)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 2. src/pages/Monsters
 
-### `npm test`
+Monsters 컴포넌트가 위치하고 있습니다. 이 컴포넌트에서는 monster의 리스트를 응답하는 API를 호출하고,
+응답값을 이용해서 몬스터들의 리스트를 렌더링 합니다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 3. src/pages/Monster
 
-### `npm run build`
+Monster 컴포넌트가 위치하고 있습니다. 이 컴포넌트의 목적은 하나의 monster에 대한 정보를 응답하는 API를 호출하고,
+응답값을 이용해서 몬스터의 정보를 보여주는 것입니다(아직 구현되어 있지 않습니다.)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 구현 목표
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Monsters 컴포넌트에서 몬스터를 클릭했을 때 `/detail/[몬스터의 ID]`로 이동할 수 있게 해주세요  
+   e.g., id가 1인 몬스터를 클릭하면 `/detail/1`로 이동, id가 2인 몬스터를 클릭하면 `/detail/2`로 이동
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Monster 컴포넌트에서 URL에 있는 몬스터의 ID에 해당하는 몬스터의 정보가 나오도록 해주세요  
+   e.g., `/detail/1`에서는 ID가 1인 몬스터에 대한 정보 표시, `/detail/2`에서는 ID가 2인 몬스터에 대한 정보 표시
 
-### `npm run eject`
+3. Monster 컴포넌트에서 Back to Monster List 버튼을 누르면 `"/"` 경로로 돌아가도록 해주세요
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+4. Monster 컴포넌트에서 Previous, Next 버튼을 누르면 각각 이전 몬스터, 다음 몬스터에 대한 정보가 보이도록 해주세요
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## API 명세서
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+백엔드 API 명세서는 아래와 같습니다.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- BASEURL: `https://jsonplaceholder.typicode.com`
+- End Point:
+  1. `/users` : 전체 몬스터에 대한 데이터
+  2. `/users/[몬스터의 ID]` : ID에 해당하는 몬스터에 대한 데이터
 
-## Learn More
+## 힌트
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- 컴포넌트에서 path parameter를 활용하기 위해서는 Router에서 Route의 path를 설정해줘야 합니다.
+- Previous, Next 버튼을 구현하기 위해서는 path parameter가 변할 때 마다 새롭게 API 호출을 하고 state를 변경해줘야 합니다.
+  (useEffect hook을 활용해보세요)
