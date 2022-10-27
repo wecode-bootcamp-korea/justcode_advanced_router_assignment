@@ -8,7 +8,7 @@ export default function Router() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Monsters />} />
-        <Route path="/detail/" element={<Monster />} />
+        <Route path="/detail/:id" element={<Monster />} />
       </Routes>
     </BrowserRouter>
   );

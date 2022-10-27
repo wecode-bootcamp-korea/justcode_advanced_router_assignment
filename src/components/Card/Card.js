@@ -1,9 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./Card.scss";
 
 function Card({ id, name, email }) {
+  const navigate = useNavigate();
   return (
-    <div className="card">
+    <div className="card" onClick={() => navigate(`/detail/${id}`)}>
       <img
         src={`https://robohash.org/${id}?set=set2&size=180x180`}
         alt="user avatar"
